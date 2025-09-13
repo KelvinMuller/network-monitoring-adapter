@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: network-monitoring-adapter
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: sensor-consumers
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    properties:
+      security.protocol: SASL_PLAINTEXT
+      sasl.mechanism: PLAIN
+      sasl.jaas.config: 'org.apache.kafka.common.security.plain.PlainLoginModule required username="${KAFKA_USERNAME:netibora}" password="${KAFKA_PASSWORD:w1nn3rs!@$1239}";'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+sensor:
+ numericKeys:
+  - temperature
+  - humidity
+  - co2
+  - users
+logging:
+  level:
+    com.networkmonitoring: DEBUG  
+
+
